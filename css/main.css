@@ -87,3 +87,14 @@ textarea {
     color: #16C0B0;
     text-decoration: underline;
 }
+
+.sale-badge {
+    display: inline-block;
+    background-color: #ff4136;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 8px;
+    font-size: 14px;
+}
