@@ -6,8 +6,8 @@ let app = new Vue({
       selectedVariant: 0,
       altText: "A pair of socks",
       link: 'https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks',
-      inventory: 100,
-      onSale: false,
+      inventory: 120,
+      onSale: true,
       details: ['80% cotton', '20% polyester', 'Gender-neutral'],
       variants: [
          { 
@@ -28,32 +28,26 @@ let app = new Vue({
    },
     
    computed: {
-      currentVariant() {
-      return this.variants[this.selectedVariant];
-   },
-   currentQuantity() {
-      return this.currentVariant.variantQuantity;
-   },
-   inStock() {
-      return this.currentQuantity > 0;
-   },
-   altText() {
-      return `A pair of ${this.currentVariant.variantColor} socks`;
-   },
-   image() {
-      return this.currentVariant.variantImage;
-   },
-   title() {
-      return this.brand + ' ' + this.product;
-   },
-         
-         sale() {
-      return this.onSale 
-         ? `${this.brand} ${this.product} are on sale!` 
-         : `${this.brand} ${this.product} are not on sale.`;
-        }
+      inStock(){
+        return this.variants[this.selectedVariant].variantQuantity
+        },
 
-   },
+      title() {
+       return this.brand + ' ' + this.product;
+         },
+   
+     image() {
+        return this.variants[this.selectedVariant].variantImage;
+         },
+
+         sale() {
+           if (this.onSale) {
+            return `${this.brand} ${this.product} are on sale!`;
+           } else {
+            return `${this.brand} ${this.product} are not on sale.`;
+           }
+         }
+     },
 
 
    methods: {

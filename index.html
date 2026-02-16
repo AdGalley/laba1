@@ -18,13 +18,11 @@
 
       <div class="product-info">
          <h1>{{ title }}</h1>
-         <span v-if="onSale" class="sale-badge">On Sale!</span>
-         <a v-bind:href="link">More products like this</a>
-         <p v-if="currentQuantity > 10">In stock</p>
-         <p v-else-if="currentQuantity > 0 && currentQuantity <= 10">Almost sold out!</p>
-         <p v-else :class="{ 'line-through': !inStock }">Out of stock</p>
-
          <p class="sale-message">{{ sale }}</p>
+         <a v-bind:href="link">More products like this</a>
+         <p v-if="inStock">In stock</p>
+         <p v-else :class="{ 'line-through': !inStock }">Out of stock</p>
+         
 
          <ul class="details">
             <li v-for="detail in details">{{ detail }}</li>
