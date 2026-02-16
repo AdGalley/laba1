@@ -2,8 +2,7 @@
 <html lang="ru">
 <head>
    <meta charset="UTF-8">
-   <meta name="viewport"
-         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <script defer src="js/vue.min.js"></script>
    <script defer src="js/main.js"></script>
@@ -11,26 +10,43 @@
    <title>Product App</title>
 </head>
 <body>
-<div id="app">
-
+  <div id="app">
    <div class="product">
+      <div class="product-image">
+         <img v-bind:src="image" v-bind:alt="altText" />
+      </div>
 
-       <div class="product-image">
-           <img v-bind:src="image" v-bind:alt="altText" />
-       </div>
+      <div class="product-info">
+         <h1>{{ product }}</h1>
+         <span v-if="onSale" class="sale-badge">On Sale!</span>
+         <a v-bind:href="link">More products like this</a>
+         <p v-if="inventory > 10">In stock</p>
+         <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
+         <p v-else>Out of stock</p>
 
-       <div class="product-info">
-           <h1>{{ product }}</h1>
-           <span v-if="onSale" class="sale-badge">On Sale!</span>
-           <a v-bind:href="link">More products like this</a>
-       </div>
+         <ul class="details">
+            <li v-for="detail in details">{{ detail }}</li>
+         </ul>
 
+         <h3 class="Sizes">Sizes:</h3>
+            <ul class="details">
+            <li v-for="size in sizes" :key="size">{{ size }}</li>
+            </ul>
+
+            <div v-for="variant in variants" :key="variant.variantId">
+            <p @mouseover="updateProduct(variant.variantImage)">
+            {{ variant.variantColor }}
+             </p>
+            </div>
+            <div class="cart">
+            <p>Cart({{ cart }})</p>
+         </div>
+         <button v-on:click="addToCart">"Add to cart</button>
+         <button v-on:click="deleteToCart">"Delete to cart</button>
+            
+         </div>
+      </div>
    </div>
-
-   <p v-if="inventory > 10">In stock</p>
-   <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
-   <p v-else>Out of stock</p>
-
 </div>
 </body>
 </html>
