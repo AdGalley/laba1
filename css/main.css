@@ -98,3 +98,7 @@ textarea {
     margin-top: 8px;
     font-size: 14px;
 }
+
+.line-through {
+  text-decoration: line-through;
+}
