@@ -36,9 +36,8 @@ Vue.component('product', {
          <p v-if="inStock">In stock</p>
          <p v-else :class="{ 'line-through': !inStock }">Out of stock</p>
          <p>Shipping: {{ shipping }}</p>
-
-
-        <product-details :details="details"></product-details>
+         
+         <product-details :details="details"></product-details>
 
          <h3 class="Sizes">Sizes:</h3>
             <ul class="details">
@@ -52,9 +51,7 @@ Vue.component('product', {
                 :style="{ backgroundColor:variant.variantColor }"
                 @mouseover="updateProduct(index)">
             </div>
-            <div class="cart">
-            <p>Cart({{ cart }})</p>
-         </div>
+            
          
          <button 
             v-on:click="addToCart"
@@ -95,22 +92,21 @@ data() {
          }
       ],
       sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
-      cart: 0
+      
            
        }
    },
 
    methods: {
        addToCart() {
-         if (this.inventory > 0) {
-            this.cart += 1;
-         }
+         this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId);
       },
 
+
       deleteToCart(){
-        if (this.cart > 0) {
-            this.cart -= 1;
-        }
+         if (this.inStock) {
+            this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId);
+         }
       },
 
       updateProduct(index) {
@@ -155,8 +151,24 @@ data() {
 let app = new Vue({
    el: '#app',
    data: {
-       premium: true
-   }
+       premium: true,
+       cart: []
+   },
+
+   methods: {
+    updateCart(id) {
+       this.cart.push(id);
+   },
+
+   removeFromCart(productId) {
+           const index = this.cart.indexOf(productId);
+           if (index > -1) {
+               this.cart.splice(index, 1);
+           }
+       }
+
+}
+
 })
 
 
